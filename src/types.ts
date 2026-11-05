@@ -60,3 +60,18 @@ export interface ExternalCalculationResult {
   
   externalComponents: ExternalComponentRequirement[];
 }
+
+export type GradeLetter = 'A+' | 'A' | 'B+' | 'B' | 'C+' | 'C' | 'D' | 'F';
+
+export interface SgpaSubjectState {
+  grade: GradeLetter;
+  isIncluded: boolean;
+}
+
+export interface SgpaCalculationResult {
+  sgpa: number;
+  totalCredits: number;
+  totalGradePoints: number;
+  percentageEquivalent: number;
+  standing: string;
+}

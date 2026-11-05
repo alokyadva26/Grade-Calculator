@@ -1,4 +1,23 @@
-import { Subject, AssessmentUserState, ExternalCalculationResult, ExternalComponentRequirement } from '../types';
+import {
+  Subject,
+  AssessmentUserState,
+  ExternalCalculationResult,
+  ExternalComponentRequirement,
+  GradeLetter,
+  SgpaSubjectState,
+  SgpaCalculationResult,
+} from '../types';
+
+export const GRADE_POINTS: Record<GradeLetter, number> = {
+  'A+': 10,
+  'A': 9,
+  'B+': 8,
+  'B': 7,
+  'C+': 6,
+  'C': 5,
+  'D': 4,
+  'F': 0,
+};
 
 export const DEFAULT_GRADE_CUTOFFS: Record<string, number> = {
   'A+': 95,
@@ -125,5 +144,49 @@ export function calculateRequiredExternalMarks(
     status,
     maxPossibleTotal,
     externalComponents: componentRequirements,
+  };
+}
+
+export function calculateSGPA(
+  subjects: Subject[],
+  grades: Record<string, SgpaSubjectState>,
+  gradePointsMap: Record<GradeLetter, number> = GRADE_POINTS
+): SgpaCalculationResult {
+  let totalCredits = 0;
+  let totalGradePoints = 0;
+
+  for (const subj of subjects) {
+    const isMNG = subj.category.includes('MNG') || subj.category.includes('Non-Graded');
+    const state = grades[subj.code] || {
+      grade: 'A+' as GradeLetter,
+      isIncluded: !isMNG, // By default exclude MNG from SGPA
+    };
+
+    if (state.isIncluded) {
+      const points = gradePointsMap[state.grade] ?? 10;
+      totalCredits += subj.credits;
+      totalGradePoints += subj.credits * points;
+    }
+  }
+
+  const sgpa = totalCredits > 0 ? Number((totalGradePoints / totalCredits).toFixed(2)) : 0;
+  const percentageEquivalent = Number((sgpa * 10).toFixed(1));
+
+  let standing = 'Outstanding';
+  if (sgpa >= 9.5) standing = 'Outstanding (A+ Grade)';
+  else if (sgpa >= 9.0) standing = 'Exemplary (First Class)';
+  else if (sgpa >= 8.0) standing = 'Distinction (First Class)';
+  else if (sgpa >= 7.0) standing = 'First Division';
+  else if (sgpa >= 6.0) standing = 'Second Division (High)';
+  else if (sgpa >= 5.0) standing = 'Second Division';
+  else if (sgpa >= 4.0) standing = 'Pass';
+  else standing = 'Needs Improvement';
+
+  return {
+    sgpa,
+    totalCredits: Number(totalCredits.toFixed(1)),
+    totalGradePoints: Number(totalGradePoints.toFixed(2)),
+    percentageEquivalent,
+    standing,
   };
 }

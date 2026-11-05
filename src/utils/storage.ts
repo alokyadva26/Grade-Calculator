@@ -1,9 +1,10 @@
 import { DEFAULT_GRADE_CUTOFFS } from './calculator';
-import { AssessmentUserState } from '../types';
+import { AssessmentUserState, SgpaSubjectState } from '../types';
 
 const MARKS_KEY = 'cu_simple_calc_marks_v2';
 const CUTOFFS_KEY = 'cu_simple_calc_cutoffs_v1';
 const PREFS_KEY = 'cu_simple_calc_prefs_v1';
+const SGPA_KEY = 'cu_simple_calc_sgpa_v1';
 
 export function loadSavedMarks(): Record<string, Record<string, AssessmentUserState>> {
   try {
@@ -94,5 +95,23 @@ export function savePreferences(prefs: { subjectCode: string; grade: string }): 
     localStorage.setItem(PREFS_KEY, JSON.stringify(prefs));
   } catch (err) {
     console.error('Failed to save preferences to localStorage', err);
+  }
+}
+
+export function loadSavedSgpaGrades(): Record<string, SgpaSubjectState> {
+  try {
+    const raw = localStorage.getItem(SGPA_KEY);
+    if (!raw) return {};
+    return JSON.parse(raw);
+  } catch {
+    return {};
+  }
+}
+
+export function saveSgpaGrades(grades: Record<string, SgpaSubjectState>): void {
+  try {
+    localStorage.setItem(SGPA_KEY, JSON.stringify(grades));
+  } catch (err) {
+    console.error('Failed to save SGPA grades to localStorage', err);
   }
 }
