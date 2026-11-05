@@ -19,13 +19,10 @@ import {
   AlertTriangle,
   RotateCcw,
   Sparkles,
-  Settings,
-  Calculator,
-  CheckSquare,
-  Square,
-  Clock,
-  EyeOff,
+  ChevronDown,
+  Check,
   X,
+  Sliders,
 } from 'lucide-react';
 
 const curriculum: Subject[] = rawCurriculum as unknown as Subject[];
@@ -41,7 +38,7 @@ export const App: React.FC = () => {
   const [cutoffs, setCutoffs] = useState<Record<string, number>>(() => loadSavedCutoffs());
   const [allMarks, setAllMarks] = useState<Record<string, Record<string, AssessmentUserState>>>(() => loadSavedMarks());
 
-  // Cutoffs modal drawer toggle
+  // Cutoffs editor toggle
   const [showCutoffEditor, setShowCutoffEditor] = useState<boolean>(false);
   const [calcNotice, setCalcNotice] = useState<string | null>(null);
 
@@ -144,7 +141,7 @@ export const App: React.FC = () => {
         [activeSubject.code]: updated,
       };
     });
-    setCalcNotice('Excluded all assessments without entered marks.');
+    setCalcNotice('Excluded assessments with pending marks.');
     setTimeout(() => setCalcNotice(null), 2500);
   };
 
@@ -168,7 +165,7 @@ export const App: React.FC = () => {
         [activeSubject.code]: updated,
       };
     });
-    setCalcNotice('All assessments are now included.');
+    setCalcNotice('All assessments included.');
     setTimeout(() => setCalcNotice(null), 2000);
   };
 
@@ -190,7 +187,7 @@ export const App: React.FC = () => {
       ...prev,
       [activeSubject.code]: updated,
     }));
-    setCalcNotice('Loaded 80% sample marks for included assessments.');
+    setCalcNotice('Loaded 80% sample marks.');
     setTimeout(() => setCalcNotice(null), 2500);
   };
 
@@ -201,7 +198,7 @@ export const App: React.FC = () => {
       delete copy[activeSubject.code];
       return copy;
     });
-    setCalcNotice('Marks reset for this subject.');
+    setCalcNotice('Marks cleared for this subject.');
     setTimeout(() => setCalcNotice(null), 2000);
   };
 
@@ -216,582 +213,465 @@ export const App: React.FC = () => {
   const externalWeightTotal = externalAssessments.reduce((acc, a) => acc + a.weight, 0);
 
   return (
-    <div className="min-h-screen bg-surface-primary pb-20">
-      {/* ═══════════════════════════════════════════
-          HEADER — Floating translucent bar
-      ═══════════════════════════════════════════ */}
-      <header className="sticky top-0 z-50 bg-surface-elevated backdrop-blur-spatial border-b border-spatial-border">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-spatial-sm bg-spatial-accent flex items-center justify-center text-white shadow-spatial-sm flex-shrink-0">
-              <GraduationCap className="w-5 h-5" />
+    <div className="min-h-screen bg-[#fbfbfd] text-[#1d1d1f] antialiased">
+      {/* ── Top Header ── */}
+      <header className="border-b border-[#e5e5ea] bg-white">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-[#1d1d1f] text-white flex items-center justify-center">
+              <GraduationCap className="w-4 h-4" />
             </div>
-            <div className="min-w-0">
-              <h1 className="text-[15px] sm:text-base font-bold text-spatial-text leading-tight truncate">
-                CU External Marks Calculator
-              </h1>
-              <p className="text-[11px] text-spatial-text-tertiary leading-tight hidden sm:block">
-                Chandigarh University • Target Grade & External Exam Solver
-              </p>
-            </div>
+            <span className="font-semibold text-sm tracking-tight text-[#1d1d1f]">
+              CU Grade Calculator
+            </span>
           </div>
 
           <button
             onClick={() => setShowCutoffEditor(!showCutoffEditor)}
-            className="spatial-btn-ghost !px-2.5 !py-2 sm:!px-3 text-xs !min-h-[36px] sm:!min-h-[40px] rounded-spatial-sm border border-spatial-border"
-            aria-label="Configure Grade Cutoffs"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-[#f2f2f7] transition-colors"
           >
-            <Settings className="w-4 h-4" />
-            <span className="hidden sm:inline">Cutoffs</span>
+            <Sliders className="w-3.5 h-3.5" />
+            <span>Cutoffs</span>
           </button>
         </div>
       </header>
 
-      {/* ═══════════════════════════════════════════
-          MAIN CONTENT
-      ═══════════════════════════════════════════ */}
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 pt-5 space-y-4 sm:space-y-5">
+      {/* ── Main Container ── */}
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-6 space-y-6">
 
-        {/* Notice Banner */}
+        {/* Notice Message */}
         {calcNotice && (
-          <div className="flex items-center gap-2 px-4 py-3 rounded-spatial bg-spatial-accent-subtle border border-spatial-accent/10 text-sm font-medium text-spatial-accent animate-fade-in">
-            <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
-            <span className="flex-1">{calcNotice}</span>
-            <button onClick={() => setCalcNotice(null)} className="text-spatial-accent/60 hover:text-spatial-accent">
+          <div className="px-3 py-2 rounded-lg bg-[#f2f2f7] border border-[#e5e5ea] text-xs font-medium text-[#1d1d1f] flex items-center justify-between">
+            <span>{calcNotice}</span>
+            <button onClick={() => setCalcNotice(null)} className="text-[#86868b] hover:text-[#1d1d1f]">
               <X className="w-3.5 h-3.5" />
             </button>
           </div>
         )}
 
-        {/* ═══════════════════════════════════════
-            CUTOFF EDITOR — Floating spatial panel
-        ═══════════════════════════════════════ */}
+        {/* Cutoff Configuration Drawer */}
         {showCutoffEditor && (
-          <div className="spatial-card p-5 sm:p-6 space-y-4 animate-scale-in">
-            <div className="flex items-start justify-between gap-3">
+          <div className="min-card p-4 space-y-3 bg-white">
+            <div className="flex items-center justify-between border-b border-[#f2f2f7] pb-2.5">
               <div>
-                <h3 className="text-sm font-bold text-spatial-text">
-                  Grade Cutoff Assumptions
-                </h3>
-                <p className="text-xs text-spatial-text-tertiary mt-0.5">
-                  Set your assumed cutoff marks out of 100 for each grade (CU uses relative grading).
-                </p>
+                <h3 className="text-xs font-semibold text-[#1d1d1f]">Relative Grade Cutoffs</h3>
+                <p className="text-[11px] text-[#86868b]">Assumed minimum score out of 100 for each grade</p>
               </div>
               <button
                 onClick={handleResetCutoffs}
-                className="spatial-btn-ghost !px-2.5 !py-1.5 text-xs !min-h-[32px] flex-shrink-0"
+                className="inline-flex items-center gap-1 text-[11px] font-medium text-[#0071e3] hover:underline"
               >
                 <RotateCcw className="w-3 h-3" />
-                <span>Reset</span>
+                Reset
               </button>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+            <div className="grid grid-cols-5 gap-2 pt-1">
               {['A+', 'A', 'B+', 'B', 'C'].map((grade) => (
-                <div key={grade} className="p-3 rounded-spatial-sm bg-surface-primary border border-spatial-border">
-                  <span className="text-[11px] font-bold text-spatial-accent block mb-1.5">
-                    Grade {grade}
+                <div key={grade} className="text-center">
+                  <span className="block text-[11px] font-semibold text-[#6e6e73] mb-1">
+                    {grade}
                   </span>
-                  <div className="flex items-center gap-1.5">
-                    <input
-                      type="number"
-                      min="35"
-                      max="100"
-                      value={cutoffs[grade] || ''}
-                      onChange={(e) =>
-                        setCutoffs({
-                          ...cutoffs,
-                          [grade]: parseInt(e.target.value) || 0,
-                        })
-                      }
-                      className="spatial-input !py-1.5 text-center font-bold !text-sm !min-h-[38px]"
-                    />
-                    <span className="text-xs text-spatial-text-tertiary flex-shrink-0">/100</span>
-                  </div>
+                  <input
+                    type="number"
+                    min="35"
+                    max="100"
+                    value={cutoffs[grade] || ''}
+                    onChange={(e) =>
+                      setCutoffs({
+                        ...cutoffs,
+                        [grade]: parseInt(e.target.value) || 0,
+                      })
+                    }
+                    className="w-full text-center py-1 px-1 rounded-md border border-[#d1d1d6] text-xs font-semibold focus:outline-none focus:border-[#0071e3]"
+                  />
                 </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* ═══════════════════════════════════════
-            STEP 1 — Subject Selection
-        ═══════════════════════════════════════ */}
-        <section className="spatial-card p-4 sm:p-6 space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="step-label">Step 1 — Select Subject</span>
-            <span className="text-[11px] text-spatial-text-tertiary">9 Courses</span>
+        {/* ── 1. Clean Prominent Subject Dropdown ── */}
+        <section className="space-y-2">
+          <label htmlFor="subject-select" className="block text-xs font-semibold text-[#86868b] uppercase tracking-wider">
+            Subject
+          </label>
+          <div className="relative">
+            <select
+              id="subject-select"
+              value={selectedSubjectCode}
+              onChange={(e) => setSelectedSubjectCode(e.target.value)}
+              className="w-full appearance-none bg-white min-card px-3.5 py-2.5 text-sm font-semibold text-[#1d1d1f] cursor-pointer focus:outline-none focus:border-[#0071e3] pr-10"
+            >
+              {curriculum.map((subj) => (
+                <option key={subj.code} value={subj.code}>
+                  {subj.code} — {subj.name}
+                </option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[#86868b]">
+              <ChevronDown className="w-4 h-4" />
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            {curriculum.map((subj) => {
-              const isSelected = subj.code === selectedSubjectCode;
-              return (
-                <button
-                  key={subj.code}
-                  onClick={() => setSelectedSubjectCode(subj.code)}
-                  className={`group p-3 sm:p-3.5 rounded-spatial text-left transition-all duration-200 border ${
-                    isSelected
-                      ? 'bg-spatial-accent text-white border-spatial-accent shadow-spatial-sm'
-                      : 'bg-white hover:bg-surface-tertiary text-spatial-text border-spatial-border hover:border-spatial-border-strong hover:shadow-spatial-xs'
-                  }`}
-                >
-                  <span
-                    className={`font-mono text-[11px] block ${
-                      isSelected ? 'text-white/70' : 'text-spatial-accent font-semibold'
-                    }`}
-                  >
-                    {subj.code}
-                  </span>
-                  <span className="text-[13px] font-semibold line-clamp-1 block mt-0.5" title={subj.name}>
-                    {subj.name}
-                  </span>
-                  <span className={`text-[11px] mt-0.5 block ${isSelected ? 'text-white/60' : 'text-spatial-text-tertiary'}`}>
-                    {subj.credits} Cr • {subj.category}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Selected subject info bar */}
-          <div className="pt-3 border-t border-spatial-border flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div className="flex items-center gap-2 text-sm min-w-0">
-              <span className="font-semibold text-spatial-text truncate">{activeSubject.name}</span>
-              <span className="text-spatial-text-tertiary flex-shrink-0">•</span>
-              <span className="text-spatial-text-secondary flex-shrink-0">{activeSubject.credits} Credits</span>
+          {/* Subject metadata */}
+          <div className="flex items-center justify-between px-1 text-xs text-[#86868b]">
+            <div className="flex items-center gap-1.5">
+              <span>{activeSubject.credits} Credits</span>
+              <span>•</span>
+              <span>{activeSubject.category}</span>
             </div>
-            <div className="font-mono text-[11px] text-spatial-accent bg-spatial-accent-subtle px-3 py-1.5 rounded-full font-semibold flex-shrink-0 text-center sm:text-left">
-              Internal {100 - externalWeightTotal}% | External {externalWeightTotal}%
-            </div>
+            <span>Internal {100 - externalWeightTotal}% / External {externalWeightTotal}%</span>
           </div>
         </section>
 
-        {/* ═══════════════════════════════════════
-            STEP 2 — Target Grade Selection
-        ═══════════════════════════════════════ */}
-        <section className="spatial-card p-4 sm:p-6 space-y-4">
+        {/* ── 2. Target Grade Segmented Control ── */}
+        <section className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="step-label">Step 2 — Target Grade</span>
-            <span className="text-[11px] font-semibold text-spatial-accent">
-              Target: {targetCutoff}/100
+            <label className="block text-xs font-semibold text-[#86868b] uppercase tracking-wider">
+              Target Grade
+            </label>
+            <span className="text-xs font-medium text-[#6e6e73]">
+              Cutoff: <strong className="text-[#1d1d1f]">{targetCutoff}</strong>/100
             </span>
           </div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+          <div className="grid grid-cols-6 gap-1 bg-[#f2f2f7] p-1 rounded-xl border border-[#e5e5ea]">
             {['A+', 'A', 'B+', 'B', 'C'].map((grade) => {
               const isSelected = selectedGrade === grade;
-              const cutoffMark = cutoffs[grade] || 88;
               return (
                 <button
                   key={grade}
+                  type="button"
                   onClick={() => setSelectedGrade(grade)}
-                  className={`py-3 px-2 rounded-spatial text-center transition-all duration-200 border ${
+                  className={`py-1.5 text-xs font-semibold rounded-lg transition-all ${
                     isSelected
-                      ? 'bg-spatial-accent text-white border-spatial-accent shadow-spatial-sm'
-                      : 'bg-white hover:bg-surface-tertiary text-spatial-text border-spatial-border hover:border-spatial-border-strong'
+                      ? 'bg-white text-[#1d1d1f] shadow-xs'
+                      : 'text-[#6e6e73] hover:text-[#1d1d1f]'
                   }`}
                 >
-                  <span className="text-base font-bold block">{grade}</span>
-                  <span className={`text-[11px] block mt-0.5 ${isSelected ? 'text-white/70' : 'text-spatial-text-tertiary'}`}>
-                    {cutoffMark}+ marks
-                  </span>
+                  {grade}
                 </button>
               );
             })}
 
-            {/* Custom Target */}
             <button
+              type="button"
               onClick={() => setSelectedGrade('CUSTOM')}
-              className={`py-3 px-2 rounded-spatial text-center transition-all duration-200 border col-span-3 sm:col-span-1 ${
+              className={`py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 selectedGrade === 'CUSTOM'
-                  ? 'bg-spatial-accent-subtle border-spatial-accent'
-                  : 'bg-white border-spatial-border hover:border-spatial-border-strong'
+                  ? 'bg-white text-[#1d1d1f] shadow-xs'
+                  : 'text-[#6e6e73] hover:text-[#1d1d1f]'
               }`}
             >
-              <span className={`text-xs font-bold block ${selectedGrade === 'CUSTOM' ? 'text-spatial-accent' : 'text-spatial-text'}`}>
-                Custom
-              </span>
-              <div className="flex items-center justify-center gap-1 mt-1">
+              Custom
+            </button>
+          </div>
+
+          {/* Inline custom mark input if Custom is active */}
+          {selectedGrade === 'CUSTOM' && (
+            <div className="flex items-center justify-between px-3 py-2 bg-white rounded-lg border border-[#e5e5ea] text-xs">
+              <span className="text-[#6e6e73] font-medium">Custom target marks:</span>
+              <div className="flex items-center gap-1">
                 <input
                   type="number"
                   min="35"
                   max="100"
                   value={customTargetMarks}
-                  onClick={(e) => e.stopPropagation()}
-                  onChange={(e) => {
-                    setCustomTargetMarks(parseInt(e.target.value) || 0);
-                    setSelectedGrade('CUSTOM');
-                  }}
-                  className="w-12 px-1 py-0.5 text-center text-xs font-bold border border-spatial-border-strong rounded-md bg-white focus:ring-2 focus:ring-spatial-accent/30 focus:border-spatial-accent outline-none"
+                  onChange={(e) => setCustomTargetMarks(parseInt(e.target.value) || 0)}
+                  className="w-14 text-center py-1 px-1 rounded border border-[#d1d1d6] font-semibold text-xs focus:outline-none focus:border-[#0071e3]"
                 />
-                <span className="text-[10px] text-spatial-text-tertiary">/100</span>
+                <span className="text-[#86868b]">/100</span>
               </div>
-            </button>
-          </div>
+            </div>
+          )}
         </section>
 
-        {/* ═══════════════════════════════════════
-            STEP 3 — Internal Assessment Marks
-        ═══════════════════════════════════════ */}
-        <section className="spatial-card p-4 sm:p-6 space-y-4">
-          {/* Header with action buttons */}
-          <div className="flex flex-col gap-3 pb-3 border-b border-spatial-border">
-            <div>
-              <span className="step-label">Step 3 — Internal Marks & Assessment Selection</span>
-              <p className="text-xs text-spatial-text-tertiary mt-1">
-                Enter marks for announced assessments. Toggle checkboxes to include or exclude.
-              </p>
-            </div>
-
-            {/* Quick action buttons */}
-            <div className="flex flex-wrap items-center gap-2">
+        {/* ── 3. Internal Marks Entry (Apple Settings Grouped Table) ── */}
+        <section className="space-y-2">
+          <div className="flex items-center justify-between">
+            <label className="block text-xs font-semibold text-[#86868b] uppercase tracking-wider">
+              Internal Assessments
+            </label>
+            <div className="flex items-center gap-1.5">
               <button
+                type="button"
                 onClick={handleIncludeAll}
-                className="spatial-btn-ghost !px-2.5 !py-1.5 text-xs !min-h-[34px] border border-spatial-border"
+                className="px-2 py-0.5 rounded text-[11px] font-medium text-[#6e6e73] hover:bg-[#f2f2f7]"
+                title="Include all assessments"
               >
                 Include All
               </button>
-
               <button
+                type="button"
                 onClick={handleExcludeUnmarked}
-                className="spatial-btn-ghost !px-2.5 !py-1.5 text-xs !min-h-[34px] border border-spatial-warning-border bg-spatial-warning-bg text-amber-700"
-                title="Exclude any assessment where marks are not yet announced"
+                className="px-2 py-0.5 rounded text-[11px] font-medium text-[#975a16] bg-[#fef7ec] hover:bg-[#feebc8]"
+                title="Exclude assessments without announced marks"
               >
-                Exclude Unannounced
+                Only Announced
               </button>
-
               <button
+                type="button"
                 onClick={handleFillSampleInternals}
-                className="spatial-btn-secondary !px-2.5 !py-1.5 text-xs !min-h-[34px]"
+                className="px-2 py-0.5 rounded text-[11px] font-medium text-[#0071e3] hover:bg-[#f2f2f7]"
               >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Fill 80%</span>
+                Fill 80%
               </button>
-
               <button
+                type="button"
                 onClick={handleClearSubjectInternals}
-                className="spatial-btn-ghost !px-2.5 !py-1.5 text-xs !min-h-[34px] text-spatial-text-tertiary hover:!text-red-600 hover:!bg-spatial-error-bg border border-spatial-border"
+                className="px-2 py-0.5 rounded text-[11px] font-medium text-[#86868b] hover:text-[#e02424] hover:bg-[#f2f2f7]"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span>Clear</span>
+                Clear
               </button>
             </div>
           </div>
 
-          {/* Assessment Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          {/* Grouped Inset List */}
+          <div className="min-card overflow-hidden divide-y divide-[#f2f2f7]">
             {internalAssessments.map((a) => {
               const state = currentSubjectStates[a.id] || { rawMarks: null, isIncluded: true };
               const isIncluded = state.isIncluded !== false;
               const currentRaw = state.rawMarks;
-
               const isCompleted = isIncluded && currentRaw !== null && currentRaw !== undefined;
-
               const weightedContribution = isCompleted && a.maxMarks > 0
-                ? ((currentRaw / a.maxMarks) * a.weight).toFixed(2)
+                ? ((currentRaw / a.maxMarks) * a.weight).toFixed(1)
                 : null;
 
               return (
                 <div
                   key={a.id}
-                  className={`group p-3.5 rounded-spatial border transition-all duration-200 flex items-start gap-3 ${
-                    !isIncluded
-                      ? 'bg-surface-primary border-spatial-border opacity-50'
-                      : isCompleted
-                      ? 'bg-white border-spatial-success-border'
-                      : 'bg-white border-spatial-border hover:border-spatial-border-strong hover:shadow-spatial-xs'
+                  className={`flex items-center justify-between px-3.5 py-2.5 transition-colors ${
+                    !isIncluded ? 'bg-[#fafafc] opacity-60' : 'bg-white'
                   }`}
                 >
-                  {/* Include/Exclude Toggle */}
-                  <button
-                    type="button"
-                    onClick={() => handleToggleInclude(a.id)}
-                    className="mt-0.5 flex-shrink-0 focus:outline-none"
-                    title={isIncluded ? 'Click to exclude this assessment' : 'Click to include this assessment'}
-                    style={{ minWidth: 20, minHeight: 20 }}
-                  >
-                    {isIncluded ? (
-                      <CheckSquare className="w-[18px] h-[18px] text-spatial-accent" />
-                    ) : (
-                      <Square className="w-[18px] h-[18px] text-spatial-text-tertiary" />
-                    )}
-                  </button>
-
-                  {/* Assessment Info */}
-                  <div className="flex-1 min-w-0">
-                    <span
-                      className={`text-[13px] font-semibold line-clamp-1 block ${
-                        !isIncluded ? 'line-through text-spatial-text-tertiary' : 'text-spatial-text'
+                  {/* Left: Checkbox & Name */}
+                  <div className="flex items-center gap-3 min-w-0 flex-1 mr-3">
+                    <button
+                      type="button"
+                      onClick={() => handleToggleInclude(a.id)}
+                      className={`w-4 h-4 rounded flex items-center justify-center transition-colors flex-shrink-0 ${
+                        isIncluded
+                          ? 'bg-[#0071e3] text-white'
+                          : 'border border-[#c7c7cc] bg-white text-transparent'
                       }`}
-                      title={a.name}
+                      aria-label={isIncluded ? `Exclude ${a.name}` : `Include ${a.name}`}
                     >
-                      {a.name}
-                    </span>
+                      <Check className="w-3 h-3 stroke-[3]" />
+                    </button>
 
-                    <div className="flex items-center gap-2 text-[11px] text-spatial-text-tertiary mt-0.5">
-                      <span>Max {a.maxMarks}</span>
-                      <span className="w-px h-3 bg-spatial-border-strong" />
-                      <span className="font-semibold text-spatial-accent">{a.weight}% weight</span>
-                    </div>
-
-                    {/* Status Badge */}
-                    <div className="mt-1.5">
-                      {!isIncluded ? (
-                        <span className="badge-neutral">
-                          <EyeOff className="w-3 h-3" />
-                          Excluded
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`text-xs font-medium truncate block ${
+                            !isIncluded ? 'line-through text-[#86868b]' : 'text-[#1d1d1f]'
+                          }`}
+                          title={a.name}
+                        >
+                          {a.name}
                         </span>
-                      ) : isCompleted ? (
-                        <span className="badge-success">
-                          <CheckCircle2 className="w-3 h-3" />
-                          +{weightedContribution}%
-                        </span>
-                      ) : (
-                        <span className="badge-warning">
-                          <Clock className="w-3 h-3" />
-                          Pending
-                        </span>
-                      )}
+                        {!isIncluded && (
+                          <span className="min-badge-neutral">Excluded</span>
+                        )}
+                        {isCompleted && (
+                          <span className="min-badge-success">+{weightedContribution}%</span>
+                        )}
+                      </div>
+                      <span className="text-[11px] text-[#86868b]">
+                        Weight: {a.weight}% • Max: {a.maxMarks}
+                      </span>
                     </div>
                   </div>
 
-                  {/* Marks Input */}
-                  <div className="text-right flex-shrink-0">
-                    <div className="flex items-center gap-1.5">
-                      <input
-                        type="number"
-                        step="0.5"
-                        min="0"
-                        max={a.maxMarks}
-                        placeholder={!isIncluded ? '—' : '...'}
-                        disabled={!isIncluded}
-                        value={currentRaw !== null && currentRaw !== undefined ? currentRaw : ''}
-                        onChange={(e) => handleMarkChange(a.id, a.maxMarks, e.target.value)}
-                        className={`w-16 sm:w-[72px] px-2 py-2 text-center font-bold text-sm border rounded-spatial-sm outline-none transition-all ${
-                          !isIncluded
-                            ? 'bg-surface-primary border-spatial-border text-spatial-text-tertiary cursor-not-allowed'
-                            : 'bg-surface-tertiary border-spatial-border-strong focus:ring-2 focus:ring-spatial-accent/30 focus:border-spatial-accent'
-                        }`}
-                        style={{ minHeight: 40 }}
-                      />
-                      <span className="text-[11px] text-spatial-text-tertiary font-medium">/{a.maxMarks}</span>
-                    </div>
-
-                    <span className="text-[10px] text-spatial-text-tertiary block mt-1">
-                      {!isIncluded
-                        ? 'not counted'
-                        : isCompleted
-                        ? `${weightedContribution}% earned`
-                        : 'awaiting marks'}
-                    </span>
+                  {/* Right: Input */}
+                  <div className="flex items-center gap-1.5 flex-shrink-0">
+                    <input
+                      type="number"
+                      step="0.5"
+                      min="0"
+                      max={a.maxMarks}
+                      disabled={!isIncluded}
+                      placeholder={!isIncluded ? '—' : '...'}
+                      value={currentRaw !== null && currentRaw !== undefined ? currentRaw : ''}
+                      onChange={(e) => handleMarkChange(a.id, a.maxMarks, e.target.value)}
+                      className={`w-14 text-center py-1 px-1 rounded-md border text-xs font-semibold focus:outline-none focus:border-[#0071e3] ${
+                        !isIncluded
+                          ? 'bg-[#f2f2f7] border-transparent text-[#86868b] cursor-not-allowed'
+                          : 'border-[#d1d1d6] bg-white text-[#1d1d1f]'
+                      }`}
+                    />
+                    <span className="text-[11px] text-[#86868b] w-6">/{a.maxMarks}</span>
                   </div>
                 </div>
               );
             })}
           </div>
 
-          {/* Internal Progress Summary */}
-          <div className="p-4 rounded-spatial bg-spatial-accent-subtle border border-spatial-accent/10 space-y-2">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-sm">
-              <div>
-                <span className="text-spatial-text-secondary">Accumulated Internal: </span>
-                <strong className="text-spatial-text text-base">
-                  {calculation.internalWeightedMarks.toFixed(2)}
-                </strong>
-                <span className="text-spatial-text-tertiary text-xs">
-                  {' '}/ {calculation.applicableInternalWeight}% active
-                </span>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2 text-xs">
-                {calculation.excludedWeight > 0 && (
-                  <span className="badge-warning">
-                    Excl: {calculation.excludedWeight}%
-                  </span>
-                )}
-                {calculation.pendingInternalWeight > 0 && (
-                  <span className="badge-neutral">
-                    Pending: {calculation.pendingInternalWeight}%
-                  </span>
-                )}
-                <span className="font-bold text-spatial-accent text-xs">
-                  External: {calculation.externalWeight}%
-                </span>
-              </div>
+          {/* Compact summary bar */}
+          <div className="flex flex-wrap items-center justify-between px-1 py-1 text-xs text-[#86868b]">
+            <div>
+              <span>Earned Internal: </span>
+              <strong className="text-[#1d1d1f] font-semibold">
+                {calculation.internalWeightedMarks.toFixed(1)}
+              </strong>
+              <span> / {calculation.applicableInternalWeight}% scope</span>
             </div>
-
-            <p className="text-[11px] text-spatial-text-tertiary leading-relaxed">
-              Excluded and pending assessments are not counted as zero. Target is scaled to your active syllabus of <strong className="text-spatial-text-secondary">{calculation.applicableTotalWeight}%</strong>.
-            </p>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════════
-            STEP 4 — THE HERO RESULT
-        ═══════════════════════════════════════ */}
-        <section className="rounded-spatial-xl overflow-hidden animate-slide-up">
-          {/* Result Header */}
-          <div className={`p-5 sm:p-7 ${
-            calculation.status === 'IMPOSSIBLE'
-              ? 'bg-gradient-to-br from-gray-900 via-red-950/80 to-gray-900'
-              : calculation.status === 'ALREADY_ACHIEVED'
-              ? 'bg-gradient-to-br from-gray-900 via-emerald-950/60 to-gray-900'
-              : 'bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900'
-          } text-white space-y-5`}>
-
-            {/* Title + Status Badge */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <span className="step-label !text-white/40 flex items-center gap-1.5">
-                  <Calculator className="w-3.5 h-3.5" />
-                  External Exam Requirement
-                </span>
-                <h3 className="text-base sm:text-lg font-bold mt-1 text-white/90">
-                  Target: {calculation.targetGrade} ({calculation.targetCutoffMarks}/100)
-                </h3>
-              </div>
-
-              <div className="flex-shrink-0">
-                {calculation.status === 'ACHIEVABLE' && (
-                  <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/25">
-                    <CheckCircle2 className="w-4 h-4" />
-                    ACHIEVABLE
-                  </span>
-                )}
-                {calculation.status === 'ALREADY_ACHIEVED' && (
-                  <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-sky-500/15 text-sky-400 border border-sky-500/25">
-                    <Sparkles className="w-4 h-4" />
-                    ALREADY SECURED
-                  </span>
-                )}
-                {calculation.status === 'IMPOSSIBLE' && (
-                  <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-rose-500/15 text-rose-400 border border-rose-500/25">
-                    <AlertTriangle className="w-4 h-4" />
-                    NOT POSSIBLE
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {/* Primary Result */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
-              <div className="md:col-span-2 space-y-2">
-                <span className="text-[11px] text-white/40 uppercase tracking-[0.08em] font-semibold block">
-                  Minimum External Exam Marks
-                </span>
-
-                {calculation.status === 'ACHIEVABLE' && (
-                  <div>
-                    <div className="flex items-baseline gap-2 flex-wrap">
-                      <span className="text-5xl sm:text-6xl font-black text-white tracking-tighter">
-                        {calculation.deficit.toFixed(1)}
-                      </span>
-                      <span className="text-lg sm:text-xl text-white/40 font-semibold">
-                        / {calculation.externalWeight}
-                      </span>
-                    </div>
-                    <p className="text-sm text-white/50 mt-2 leading-relaxed">
-                      You need at least{' '}
-                      <strong className="text-emerald-400 font-bold">
-                        {calculation.requiredExternalPercentage.toFixed(1)}%
-                      </strong>{' '}
-                      in your external exam to reach your target.
-                    </p>
-                  </div>
-                )}
-
-                {calculation.status === 'ALREADY_ACHIEVED' && (
-                  <div>
-                    <span className="text-4xl sm:text-5xl font-black text-emerald-400 tracking-tighter">
-                      0 Needed
-                    </span>
-                    <p className="text-sm text-white/50 mt-2 leading-relaxed">
-                      Your internal score of {calculation.internalWeightedMarks.toFixed(1)} already exceeds the target of {calculation.scaledTargetCutoff.toFixed(1)}.
-                    </p>
-                  </div>
-                )}
-
-                {calculation.status === 'IMPOSSIBLE' && (
-                  <div>
-                    <div className="flex items-baseline gap-2 flex-wrap">
-                      <span className="text-4xl sm:text-5xl font-black text-rose-400 tracking-tighter">
-                        {calculation.deficit.toFixed(1)}
-                      </span>
-                      <span className="text-sm text-rose-300/60">
-                        needed (max {calculation.externalWeight} available)
-                      </span>
-                    </div>
-                    <p className="text-sm text-white/50 mt-2 leading-relaxed">
-                      Even with full external marks, your maximum possible total is{' '}
-                      <strong className="text-white/80">{calculation.maxPossibleTotal} / {calculation.applicableTotalWeight}</strong>.
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* Breakdown Card */}
-              <div className="p-4 rounded-spatial bg-white/[0.06] border border-white/[0.08] space-y-2.5 text-[13px]">
-                <div className="flex justify-between items-center text-white/40">
-                  <span>Target Cutoff</span>
-                  <span className="font-bold text-white/80">{calculation.targetCutoffMarks}/100</span>
-                </div>
-                <div className="flex justify-between items-center text-white/40">
-                  <span>Active Scope</span>
-                  <span className="font-bold text-sky-400/80">{calculation.applicableTotalWeight}%</span>
-                </div>
-                <div className="flex justify-between items-center text-white/40">
-                  <span>Internal Earned</span>
-                  <span className="font-bold text-emerald-400/80">
-                    {calculation.internalWeightedMarks.toFixed(1)} / {calculation.applicableInternalWeight}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center text-white/40">
-                  <span>External Weight</span>
-                  <span className="font-bold text-white/80">{calculation.externalWeight}%</span>
-                </div>
-                <div className="pt-2.5 border-t border-white/[0.08] flex justify-between items-center">
-                  <span className="font-semibold text-white/50">Deficit</span>
-                  <span className={`font-black text-base ${calculation.deficit <= calculation.externalWeight ? 'text-emerald-400' : 'text-rose-400'}`}>
-                    {calculation.deficit > 0 ? `${calculation.deficit.toFixed(1)}` : '0'}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* External Component Breakdown */}
-            {calculation.externalComponents.length > 0 && calculation.status === 'ACHIEVABLE' && (
-              <div className="pt-5 border-t border-white/[0.08] space-y-3">
-                <span className="text-[11px] font-semibold text-white/40 uppercase tracking-[0.08em] block">
-                  External Component Breakdown
-                </span>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {calculation.externalComponents.map((comp) => (
-                    <div
-                      key={comp.id}
-                      className="p-3.5 rounded-spatial bg-white/[0.05] border border-white/[0.08] flex items-center justify-between"
-                    >
-                      <div>
-                        <span className="font-semibold text-[13px] text-white/90 block">{comp.name}</span>
-                        <span className="text-[11px] text-white/30">Weight: {comp.weight}%</span>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-xl font-black text-emerald-400">
-                          {comp.requiredRawMarks}{' '}
-                          <span className="text-xs font-normal text-white/30">/ {comp.maxMarks}</span>
-                        </span>
-                        <span className="text-[10px] text-white/30 block">
-                          ({calculation.requiredExternalPercentage.toFixed(0)}% raw)
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {calculation.excludedWeight > 0 && (
+              <span className="text-[#975a16] font-medium">
+                {calculation.excludedWeight}% excluded
+              </span>
             )}
           </div>
         </section>
+
+        {/* ── 4. Final Calculated Result (Clean Minimalist Card) ── */}
+        <section className="min-card p-5 bg-white space-y-4">
+          <div className="flex items-center justify-between border-b border-[#f2f2f7] pb-3">
+            <div>
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#86868b]">
+                Required External Score
+              </span>
+              <h2 className="text-sm font-semibold text-[#1d1d1f]">
+                Target: {calculation.targetGrade} ({calculation.targetCutoffMarks}/100)
+              </h2>
+            </div>
+
+            {/* Clean Status Pill */}
+            <div>
+              {calculation.status === 'ACHIEVABLE' && (
+                <span className="min-badge-success px-2.5 py-1 text-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  Achievable
+                </span>
+              )}
+              {calculation.status === 'ALREADY_ACHIEVED' && (
+                <span className="min-badge-success px-2.5 py-1 text-xs bg-[#e8f4fd] text-[#0071e3] border-[#bee3f8]">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  Target Secured
+                </span>
+              )}
+              {calculation.status === 'IMPOSSIBLE' && (
+                <span className="min-badge-danger px-2.5 py-1 text-xs">
+                  <AlertTriangle className="w-3.5 h-3.5" />
+                  Not Possible
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Primary Result Number */}
+          <div className="space-y-1">
+            {calculation.status === 'ACHIEVABLE' && (
+              <>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl sm:text-5xl font-bold tracking-tight text-[#1d1d1f]">
+                    {calculation.deficit.toFixed(1)}
+                  </span>
+                  <span className="text-lg text-[#86868b] font-medium">
+                    / {calculation.externalWeight} marks
+                  </span>
+                </div>
+                <p className="text-xs text-[#6e6e73] pt-1">
+                  You need at least{' '}
+                  <strong className="text-[#1d1d1f] font-semibold">
+                    {calculation.requiredExternalPercentage.toFixed(1)}%
+                  </strong>{' '}
+                  in the external examination to secure your target grade.
+                </p>
+              </>
+            )}
+
+            {calculation.status === 'ALREADY_ACHIEVED' && (
+              <>
+                <span className="text-3xl sm:text-4xl font-bold tracking-tight text-[#1c7430]">
+                  0 Marks Needed
+                </span>
+                <p className="text-xs text-[#6e6e73] pt-1">
+                  Your current internal score ({calculation.internalWeightedMarks.toFixed(1)}) already achieves the required goal.
+                </p>
+              </>
+            )}
+
+            {calculation.status === 'IMPOSSIBLE' && (
+              <>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl sm:text-4xl font-bold tracking-tight text-[#9b1c1c]">
+                    {calculation.deficit.toFixed(1)}
+                  </span>
+                  <span className="text-xs text-[#9b1c1c]">
+                    needed (only {calculation.externalWeight} available)
+                  </span>
+                </div>
+                <p className="text-xs text-[#6e6e73] pt-1">
+                  Highest possible total with 100% external score is{' '}
+                  <strong className="text-[#1d1d1f] font-semibold">
+                    {calculation.maxPossibleTotal} / {calculation.applicableTotalWeight}
+                  </strong>.
+                </p>
+              </>
+            )}
+          </div>
+
+          {/* 4-Stat Breakdown Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-[#f2f2f7]">
+            <div className="p-2.5 rounded-lg bg-[#fbfbfd] border border-[#f2f2f7]">
+              <span className="block text-[11px] text-[#86868b]">Target Cutoff</span>
+              <span className="text-xs font-semibold text-[#1d1d1f]">
+                {calculation.targetCutoffMarks} / 100
+              </span>
+            </div>
+            <div className="p-2.5 rounded-lg bg-[#fbfbfd] border border-[#f2f2f7]">
+              <span className="block text-[11px] text-[#86868b]">Active Syllabus</span>
+              <span className="text-xs font-semibold text-[#1d1d1f]">
+                {calculation.applicableTotalWeight}%
+              </span>
+            </div>
+            <div className="p-2.5 rounded-lg bg-[#fbfbfd] border border-[#f2f2f7]">
+              <span className="block text-[11px] text-[#86868b]">Internal Earned</span>
+              <span className="text-xs font-semibold text-[#1d1d1f]">
+                {calculation.internalWeightedMarks.toFixed(1)} / {calculation.applicableInternalWeight}
+              </span>
+            </div>
+            <div className="p-2.5 rounded-lg bg-[#fbfbfd] border border-[#f2f2f7]">
+              <span className="block text-[11px] text-[#86868b]">External Weight</span>
+              <span className="text-xs font-semibold text-[#1d1d1f]">
+                {calculation.externalWeight}%
+              </span>
+            </div>
+          </div>
+
+          {/* Multi-component Breakdown (if applicable) */}
+          {calculation.externalComponents.length > 0 && calculation.status === 'ACHIEVABLE' && (
+            <div className="pt-3 border-t border-[#f2f2f7] space-y-2">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#86868b] block">
+                External Exam Components
+              </span>
+              <div className="space-y-1.5">
+                {calculation.externalComponents.map((comp) => (
+                  <div
+                    key={comp.id}
+                    className="flex items-center justify-between p-2.5 rounded-lg bg-[#fbfbfd] border border-[#f2f2f7]"
+                  >
+                    <div>
+                      <span className="text-xs font-medium text-[#1d1d1f] block">{comp.name}</span>
+                      <span className="text-[11px] text-[#86868b]">Weight: {comp.weight}%</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-sm font-bold text-[#1d1d1f]">
+                        {comp.requiredRawMarks}{' '}
+                        <span className="text-xs font-normal text-[#86868b]">/ {comp.maxMarks}</span>
+                      </span>
+                      <span className="block text-[10px] text-[#86868b]">
+                        ({calculation.requiredExternalPercentage.toFixed(0)}% raw)
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+
       </main>
     </div>
   );
