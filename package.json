@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "framer-motion": "^14.9.1",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
     "lucide-react": "^0.475.0",
@@ -30,4 +31,3 @@
     "vite": "^6.1.0"
   }
 }
-

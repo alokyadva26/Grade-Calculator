@@ -4,15 +4,57 @@
 
 @layer base {
   :root {
-    --bg-page: #fbfbfd;
-    --bg-card: #ffffff;
-    --text-primary: #1d1d1f;
-    --text-secondary: #6e6e73;
-    --text-tertiary: #86868b;
-    --border-subtle: #e5e5ea;
-    --border-light: #f2f2f7;
-    --accent: #0071e3;
-    --accent-hover: #0077ed;
+    /* Light Mode Palette */
+    --color-surface-primary: #f5f5f7;
+    --color-surface-secondary: #ffffff;
+    --color-surface-tertiary: #fafafa;
+    --color-surface-elevated: rgba(255, 255, 255, 0.85);
+
+    --color-spatial-text: #1d1d1f;
+    --color-spatial-text-secondary: #6e6e73;
+    --color-spatial-text-tertiary: #86868b;
+    --color-spatial-border: rgba(0, 0, 0, 0.08);
+    --color-spatial-border-strong: rgba(0, 0, 0, 0.14);
+
+    --spatial-accent-rgb: 0 113 227;
+    --color-spatial-accent: #0071e3;
+    --color-spatial-accent-hover: #0077ed;
+    --color-spatial-accent-subtle: rgba(0, 113, 227, 0.08);
+    --color-spatial-accent-light: rgba(0, 113, 227, 0.14);
+
+    --color-success-bg: rgba(52, 199, 89, 0.10);
+    --color-success-border: rgba(52, 199, 89, 0.28);
+    --color-warning-bg: rgba(255, 159, 10, 0.10);
+    --color-warning-border: rgba(255, 159, 10, 0.28);
+    --color-error-bg: rgba(255, 59, 48, 0.10);
+    --color-error-border: rgba(255, 59, 48, 0.28);
+  }
+
+  .dark {
+    /* Dark Mode Palette (Per User Requirements) */
+    --color-surface-primary: #0a0a0c;     /* Main background */
+    --color-surface-secondary: #16161a;   /* Elevated cards */
+    --color-surface-tertiary: #1d1d22;    /* Secondary surfaces */
+    --color-surface-elevated: rgba(22, 22, 26, 0.85);
+
+    --color-spatial-text: #f5f5f7;        /* Primary text */
+    --color-spatial-text-secondary: #a1a1aa; /* Secondary text */
+    --color-spatial-text-tertiary: #71717a;
+    --color-spatial-border: rgba(255, 255, 255, 0.08); /* Borders */
+    --color-spatial-border-strong: rgba(255, 255, 255, 0.16);
+
+    --spatial-accent-rgb: 0 113 227;
+    --color-spatial-accent: #0071e3;
+    --color-spatial-accent-hover: #388bfd;
+    --color-spatial-accent-subtle: rgba(0, 113, 227, 0.16);
+    --color-spatial-accent-light: rgba(0, 113, 227, 0.24);
+
+    --color-success-bg: rgba(52, 199, 89, 0.14);
+    --color-success-border: rgba(52, 199, 89, 0.35);
+    --color-warning-bg: rgba(255, 159, 10, 0.14);
+    --color-warning-border: rgba(255, 159, 10, 0.35);
+    --color-error-bg: rgba(255, 59, 48, 0.14);
+    --color-error-border: rgba(255, 59, 48, 0.35);
   }
 
   html {
@@ -23,8 +65,8 @@
 
   body {
     font-family: 'Avenir', 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-    background-color: var(--bg-page);
-    color: var(--text-primary);
+    background-color: var(--color-surface-primary);
+    color: var(--color-spatial-text);
   }
 
   /* Remove default number input spinners */
@@ -41,57 +83,102 @@
 }
 
 @layer components {
-  /* Minimalist Card */
-  .min-card {
-    @apply bg-white rounded-xl border border-[#e5e5ea];
+  /* Spatial floating card */
+  .spatial-card {
+    @apply bg-surface-secondary rounded-spatial-lg border border-spatial-border shadow-spatial;
+    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.2s ease, border-color 0.2s ease;
   }
 
-  /* Minimalist Input */
-  .min-input {
-    @apply px-3 py-1.5 rounded-lg border border-[#d1d1d6] bg-white text-[#1d1d1f] text-sm font-medium
-           focus:outline-none focus:border-[#0071e3] focus:ring-1 focus:ring-[#0071e3]
-           transition-colors duration-150;
+  .spatial-card:hover {
+    @apply shadow-spatial-md;
   }
 
-  /* Compact Button */
-  .min-btn {
-    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5
-           rounded-lg text-xs font-medium text-[#1d1d1f] bg-[#f2f2f7] hover:bg-[#e5e5ea]
-           border border-transparent transition-colors duration-150;
+  /* Spatial input field */
+  .spatial-input {
+    @apply w-full px-3 py-2.5 rounded-spatial-sm border border-spatial-border-strong
+           bg-surface-tertiary text-spatial-text text-sm font-medium
+           focus:outline-none focus:ring-2 focus:ring-spatial-accent/30 focus:border-spatial-accent
+           transition-all duration-200;
+    min-height: 44px;
   }
 
-  .min-btn-primary {
-    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5
-           rounded-lg text-xs font-medium text-white bg-[#0071e3] hover:bg-[#0077ed]
-           transition-colors duration-150;
+  /* Spatial button base */
+  .spatial-btn {
+    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2.5
+           rounded-spatial-sm font-semibold text-sm
+           transition-all duration-200;
+    min-height: 44px;
   }
 
-  /* Status Badges */
-  .min-badge {
-    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium;
+  .spatial-btn:active {
+    transform: scale(0.98);
   }
 
-  .min-badge-success {
-    @apply min-badge bg-[#ebf9ef] text-[#1c7430] border border-[#c3e6cb];
+  .spatial-btn-primary {
+    @apply spatial-btn bg-spatial-accent text-white shadow-spatial-sm
+           hover:bg-spatial-accent-hover;
   }
 
-  .min-badge-warning {
-    @apply min-badge bg-[#fef7ec] text-[#975a16] border border-[#feebc8];
+  .spatial-btn-secondary {
+    @apply spatial-btn bg-spatial-accent-subtle text-spatial-accent
+           hover:bg-spatial-accent-light;
   }
 
-  .min-badge-neutral {
-    @apply min-badge bg-[#f2f2f7] text-[#6e6e73] border border-[#e5e5ea];
+  .spatial-btn-ghost {
+    @apply spatial-btn text-spatial-text-secondary
+           hover:bg-black/[0.04] dark:hover:bg-white/[0.06];
   }
 
-  .min-badge-danger {
-    @apply min-badge bg-[#fdf2f2] text-[#9b1c1c] border border-[#f8b4b4];
+  /* Status badges */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .badge-success {
+    @apply badge bg-spatial-success-bg text-emerald-600 dark:text-emerald-400 border border-spatial-success-border;
+  }
+
+  .badge-warning {
+    @apply badge bg-spatial-warning-bg text-amber-600 dark:text-amber-400 border border-spatial-warning-border;
+  }
+
+  .badge-error {
+    @apply badge bg-spatial-error-bg text-rose-600 dark:text-rose-400 border border-spatial-error-border;
+  }
+
+  .badge-neutral {
+    @apply badge bg-black/[0.04] dark:bg-white/[0.06] text-spatial-text-secondary border border-spatial-border;
+  }
+
+  /* Section step label */
+  .step-label {
+    @apply text-[11px] font-bold uppercase tracking-[0.08em] text-spatial-text-tertiary;
   }
 }
 
-/* Minimal subtle scrollbar */
+/* View Transitions Circular Clip-Path Animation Setup */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+}
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+.dark::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* Refined scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -99,15 +186,23 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d1d1d6;
+  background: rgba(120, 120, 128, 0.2);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #aeaeb2;
+  background: rgba(120, 120, 128, 0.35);
 }
 
+/* Selection color */
 ::selection {
-  background-color: rgba(0, 113, 227, 0.15);
-  color: #1d1d1f;
+  background-color: rgba(0, 113, 227, 0.25);
+  color: var(--color-spatial-text);
+}
+
+/* Focus visible ring utility */
+*:focus-visible {
+  outline: 2px solid rgba(0, 113, 227, 0.6);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
