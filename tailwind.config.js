@@ -30,6 +30,7 @@ export default {
           primary: 'var(--color-surface-primary)',
           secondary: 'var(--color-surface-secondary)',
           tertiary: 'var(--color-surface-tertiary)',
+          input: 'var(--color-surface-input)',
           elevated: 'var(--color-surface-elevated)',
         },
         spatial: {

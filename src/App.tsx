@@ -326,7 +326,7 @@ export const App: React.FC = () => {
 
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
               {['A+', 'A', 'B+', 'B', 'C'].map((grade) => (
-                <div key={grade} className="p-3 rounded-spatial-sm bg-surface-primary border border-spatial-border">
+                <div key={grade} className="p-3 rounded-spatial-sm bg-surface-tertiary border border-spatial-border">
                   <span className="text-[11px] font-bold text-spatial-accent block mb-1.5">
                     Grade {grade}
                   </span>
@@ -411,7 +411,7 @@ export const App: React.FC = () => {
             {isDropdownOpen && (
               <div className="absolute left-0 right-0 top-full mt-2 bg-surface-secondary rounded-spatial-lg border border-spatial-border-strong shadow-spatial-lg z-40 overflow-hidden animate-scale-in">
                 {/* Search Bar inside Dropdown */}
-                <div className="p-3 border-b border-spatial-border bg-surface-primary">
+                <div className="p-3 border-b border-spatial-border bg-surface-tertiary">
                   <div className="relative">
                     <Search className="w-4 h-4 text-spatial-text-tertiary absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
                     <input
@@ -420,7 +420,7 @@ export const App: React.FC = () => {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       autoFocus
-                      className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm font-medium rounded-spatial-sm border border-spatial-border-strong bg-surface-tertiary text-spatial-text focus:outline-none focus:ring-2 focus:ring-spatial-accent/30 focus:border-spatial-accent"
+                      className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm font-medium rounded-spatial-sm border border-spatial-border-strong bg-surface-input text-spatial-text focus:outline-none focus:ring-2 focus:ring-spatial-accent/30 focus:border-spatial-accent"
                     />
                     {searchQuery && (
                       <button
@@ -454,7 +454,7 @@ export const App: React.FC = () => {
                           className={`w-full p-3 sm:p-3.5 text-left flex items-center justify-between gap-3 transition-colors ${
                             isSelected
                               ? 'bg-spatial-accent-subtle/80 text-spatial-accent'
-                              : 'hover:bg-surface-primary text-spatial-text'
+                              : 'hover:bg-surface-tertiary text-spatial-text'
                           }`}
                         >
                           <div className="min-w-0">
@@ -463,7 +463,7 @@ export const App: React.FC = () => {
                                 className={`font-mono text-[11px] font-bold px-1.5 py-0.5 rounded ${
                                   isSelected
                                     ? 'bg-spatial-accent text-white'
-                                    : 'bg-black/[0.04] text-spatial-text-secondary'
+                                    : 'bg-surface-tertiary text-spatial-text-secondary border border-spatial-border'
                                 }`}
                               >
                                 {subj.code}
@@ -645,7 +645,7 @@ export const App: React.FC = () => {
                   key={a.id}
                   className={`group p-3.5 rounded-spatial border transition-all duration-200 flex items-start gap-3 ${
                     !isIncluded
-                      ? 'bg-surface-primary border-spatial-border opacity-50'
+                      ? 'bg-surface-tertiary border-spatial-border opacity-50'
                       : isCompleted
                       ? 'bg-surface-secondary border-spatial-success-border shadow-spatial-xs'
                       : 'bg-surface-secondary border-spatial-border hover:border-spatial-border-strong hover:shadow-spatial-xs'
@@ -718,8 +718,8 @@ export const App: React.FC = () => {
                         onChange={(e) => handleMarkChange(a.id, a.maxMarks, e.target.value)}
                         className={`w-16 sm:w-[72px] px-2 py-2 text-center font-bold text-sm border rounded-spatial-sm outline-none transition-all ${
                           !isIncluded
-                            ? 'bg-surface-primary border-spatial-border text-spatial-text-tertiary cursor-not-allowed'
-                            : 'bg-surface-tertiary border-spatial-border-strong focus:ring-2 focus:ring-spatial-accent/30 focus:border-spatial-accent'
+                            ? 'bg-surface-tertiary border-spatial-border text-spatial-text-tertiary cursor-not-allowed'
+                            : 'bg-surface-input border-spatial-border-strong text-spatial-text focus:ring-2 focus:ring-spatial-accent/30 focus:border-spatial-accent'
                         }`}
                         style={{ minHeight: 40 }}
                       />
@@ -782,15 +782,15 @@ export const App: React.FC = () => {
         ═══════════════════════════════════════ */}
         <section
           id="hero-result"
-          className="rounded-spatial-xl overflow-hidden shadow-spatial-md animate-slide-up"
+          className="rounded-spatial-xl overflow-hidden shadow-spatial-md border border-spatial-border animate-slide-up"
         >
           <div
             className={`p-5 sm:p-7 ${
               calculation.status === 'IMPOSSIBLE'
-                ? 'bg-gradient-to-br from-gray-900 via-rose-950/80 to-gray-900'
+                ? 'bg-gradient-to-br from-black via-rose-950/70 to-black'
                 : calculation.status === 'ALREADY_ACHIEVED'
-                ? 'bg-gradient-to-br from-gray-900 via-emerald-950/70 to-gray-900'
-                : 'bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900'
+                ? 'bg-gradient-to-br from-black via-emerald-950/60 to-black'
+                : 'bg-gradient-to-br from-[#0a0a0c] via-slate-900 to-[#0a0a0c]'
             } text-white space-y-5`}
           >
             {/* Title + Status Badge */}

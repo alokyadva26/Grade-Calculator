@@ -4,10 +4,11 @@
 
 @layer base {
   :root {
-    /* Light Mode Palette */
+    /* Light Mode Spatial Palette */
     --color-surface-primary: #f5f5f7;
     --color-surface-secondary: #ffffff;
-    --color-surface-tertiary: #fafafa;
+    --color-surface-tertiary: #f2f2f7;
+    --color-surface-input: #ffffff;
     --color-surface-elevated: rgba(255, 255, 255, 0.85);
 
     --color-spatial-text: #1d1d1f;
@@ -31,29 +32,30 @@
   }
 
   .dark {
-    /* Dark Mode Palette (Per User Requirements) */
-    --color-surface-primary: #0a0a0c;     /* Main background */
-    --color-surface-secondary: #16161a;   /* Elevated cards */
-    --color-surface-tertiary: #1d1d22;    /* Secondary surfaces */
-    --color-surface-elevated: rgba(22, 22, 26, 0.85);
+    /* Pure Black Dark Mode Palette (Per User Requirements) */
+    --color-surface-primary: #000000;         /* Main background: Pure Black */
+    --color-surface-secondary: #111111;       /* Elevated cards: #111111 */
+    --color-surface-tertiary: #181818;        /* Secondary surfaces: #181818 */
+    --color-surface-input: #101010;           /* Input backgrounds: #101010 */
+    --color-surface-elevated: rgba(17, 17, 17, 0.90);
 
-    --color-spatial-text: #f5f5f7;        /* Primary text */
-    --color-spatial-text-secondary: #a1a1aa; /* Secondary text */
+    --color-spatial-text: #ffffff;            /* Primary text: #FFFFFF */
+    --color-spatial-text-secondary: #a1a1aa;   /* Secondary text: #A1A1AA */
     --color-spatial-text-tertiary: #71717a;
-    --color-spatial-border: rgba(255, 255, 255, 0.08); /* Borders */
-    --color-spatial-border-strong: rgba(255, 255, 255, 0.16);
+    --color-spatial-border: rgba(255, 255, 255, 0.10); /* Borders: rgba(255,255,255,0.10) */
+    --color-spatial-border-strong: rgba(255, 255, 255, 0.18);
 
     --spatial-accent-rgb: 0 113 227;
     --color-spatial-accent: #0071e3;
     --color-spatial-accent-hover: #388bfd;
-    --color-spatial-accent-subtle: rgba(0, 113, 227, 0.16);
-    --color-spatial-accent-light: rgba(0, 113, 227, 0.24);
+    --color-spatial-accent-subtle: rgba(0, 113, 227, 0.18);
+    --color-spatial-accent-light: rgba(0, 113, 227, 0.26);
 
-    --color-success-bg: rgba(52, 199, 89, 0.14);
+    --color-success-bg: rgba(52, 199, 89, 0.15);
     --color-success-border: rgba(52, 199, 89, 0.35);
-    --color-warning-bg: rgba(255, 159, 10, 0.14);
+    --color-warning-bg: rgba(255, 159, 10, 0.15);
     --color-warning-border: rgba(255, 159, 10, 0.35);
-    --color-error-bg: rgba(255, 59, 48, 0.14);
+    --color-error-bg: rgba(255, 59, 48, 0.15);
     --color-error-border: rgba(255, 59, 48, 0.35);
   }
 
@@ -61,12 +63,22 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    background-color: var(--color-surface-primary);
+  }
+
+  html.dark {
+    background-color: #000000 !important;
   }
 
   body {
     font-family: 'Avenir', 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
     background-color: var(--color-surface-primary);
     color: var(--color-spatial-text);
+    min-height: 100vh;
+  }
+
+  html.dark body {
+    background-color: #000000 !important;
   }
 
   /* Remove default number input spinners */
@@ -96,7 +108,7 @@
   /* Spatial input field */
   .spatial-input {
     @apply w-full px-3 py-2.5 rounded-spatial-sm border border-spatial-border-strong
-           bg-surface-tertiary text-spatial-text text-sm font-medium
+           bg-surface-input text-spatial-text text-sm font-medium
            focus:outline-none focus:ring-2 focus:ring-spatial-accent/30 focus:border-spatial-accent
            transition-all duration-200;
     min-height: 44px;

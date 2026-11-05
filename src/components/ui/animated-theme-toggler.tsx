@@ -17,6 +17,7 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
     return document.documentElement.classList.contains("dark")
   })
 
+  // Synchronise state with document element classes (e.g. from script or external change)
   useEffect(() => {
     const syncTheme = () => {
       setDarkMode(document.documentElement.classList.contains("dark"))
@@ -37,9 +38,12 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
     if (!buttonRef.current) return
 
     const toggled = !darkMode
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
-    // Graceful fallback if View Transitions API is unsupported
-    if (!document.startViewTransition) {
+    // Graceful fallback if View Transitions API is unsupported or user prefers reduced motion
+    if (!document.startViewTransition || prefersReducedMotion) {
       setDarkMode(toggled)
       document.documentElement.classList.toggle("dark", toggled)
       try {
@@ -50,6 +54,7 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
       return
     }
 
+    // View Transitions API
     const transition = document.startViewTransition(() => {
       flushSync(() => {
         setDarkMode(toggled)
@@ -80,14 +85,14 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
         ],
       },
       {
-        duration: 700,
+        duration: 500,
         easing: "ease-in-out",
         pseudoElement: "::view-transition-new(root)",
       }
     )
 
     animation.onfinish = () => {
-      // Ensure clean state after transition
+      // Clean up after transition
     }
   }, [darkMode])
 
@@ -95,8 +100,8 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
     <button
       ref={buttonRef}
       onClick={onToggle}
-      aria-label="Switch theme"
-      title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+      aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+      title={darkMode ? "Dark mode active — Click for light mode" : "Light mode active — Click for dark mode"}
       className={cn(
         "flex items-center justify-center p-2 rounded-spatial-sm outline-none focus:outline-none active:outline-none focus:ring-0 cursor-pointer transition-colors duration-150",
         className
@@ -106,25 +111,25 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
       <AnimatePresence mode="wait" initial={false}>
         {darkMode ? (
           <motion.span
-            key="sun-icon"
-            initial={{ opacity: 0, scale: 0.55, rotate: 25 }}
+            key="moon-icon"
+            initial={{ opacity: 0, scale: 0.6, rotate: -20 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="text-amber-400 flex items-center justify-center"
+            exit={{ opacity: 0, scale: 0.6, rotate: 20 }}
+            transition={{ duration: 0.2 }}
+            className="text-white flex items-center justify-center"
           >
-            <Sun className="w-4 h-4" />
+            <Moon className="w-4 h-4" />
           </motion.span>
         ) : (
           <motion.span
-            key="moon-icon"
-            initial={{ opacity: 0, scale: 0.55, rotate: -25 }}
+            key="sun-icon"
+            initial={{ opacity: 0, scale: 0.6, rotate: 20 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="text-spatial-text flex items-center justify-center"
+            exit={{ opacity: 0, scale: 0.6, rotate: -20 }}
+            transition={{ duration: 0.2 }}
+            className="text-amber-500 flex items-center justify-center"
           >
-            <Moon className="w-4 h-4" />
+            <Sun className="w-4 h-4" />
           </motion.span>
         )}
       </AnimatePresence>
