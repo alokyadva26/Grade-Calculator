@@ -1,0 +1,202 @@
+[
+  {
+    "id": "24TDP-311",
+    "code": "24TDP-311",
+    "name": "Soft Skills-III",
+    "coordinator": "Iqra (E14341)",
+    "courseType": "General Skill",
+    "category": "Mandatory Non-Graded (MNG)",
+    "credits": 2.0,
+    "modeOfAssessment": "Practical Examination (PRAC)",
+    "assessments": [
+      { "id": "SS_VIVA", "name": "External Viva / Voce", "componentType": "External Practical", "maxMarks": 40, "weight": 40.0, "isExternal": true },
+      { "id": "SS_WRITEX", "name": "Write X (Soft Skills)", "componentType": "Continuous Evaluation", "maxMarks": 10, "weight": 10.0, "isExternal": false },
+      { "id": "SS_PRES", "name": "Presentation (Soft Skills)", "componentType": "Continuous Evaluation", "maxMarks": 10, "weight": 10.0, "isExternal": false },
+      { "id": "SS_ATT", "name": "Attendance and Engagement Score (LMS)", "componentType": "Attendance", "maxMarks": 4, "weight": 4.0, "isExternal": false },
+      { "id": "SS_Q1", "name": "Quiz-1 (Unit-1)", "componentType": "Quiz", "maxMarks": 6, "weight": 2.0, "isExternal": false },
+      { "id": "SS_Q2", "name": "Quiz-2 (Unit-2)", "componentType": "Quiz", "maxMarks": 6, "weight": 2.0, "isExternal": false },
+      { "id": "SS_Q3", "name": "Quiz-3 (Unit-3)", "componentType": "Quiz", "maxMarks": 6, "weight": 2.0, "isExternal": false },
+      { "id": "SS_LA1", "name": "Live Assignment-1 (Unit-1)", "componentType": "Assignment", "maxMarks": 30, "weight": 10.0, "isExternal": false },
+      { "id": "SS_LA2", "name": "Live Assignment-2 (Unit-2)", "componentType": "Assignment", "maxMarks": 30, "weight": 10.0, "isExternal": false },
+      { "id": "SS_LA3", "name": "Live Assignment-3 (Unit-3)", "componentType": "Assignment", "maxMarks": 30, "weight": 10.0, "isExternal": false }
+    ]
+  },
+  {
+    "id": "24TDT-312",
+    "code": "24TDT-312",
+    "name": "Aptitude-III",
+    "coordinator": "Ashwani Choubey (E17242)",
+    "courseType": "General Skill",
+    "category": "Mandatory Non-Graded (MNG)",
+    "credits": 2.0,
+    "modeOfAssessment": "Theory Examination (ET)",
+    "assessments": [
+      { "id": "APT_EXT", "name": "External Theory", "componentType": "End Semester Exam", "maxMarks": 60, "weight": 60.0, "isExternal": true },
+      { "id": "APT_MST1", "name": "Mid-Semester Test-1", "componentType": "Mid Term Test", "maxMarks": 20, "weight": 10.0, "isExternal": false },
+      { "id": "APT_MST2", "name": "Mid-Semester Test-2", "componentType": "Mid Term Test", "maxMarks": 20, "weight": 10.0, "isExternal": false },
+      { "id": "APT_PBL", "name": "Assignment/PBL", "componentType": "Assignment", "maxMarks": 12, "weight": 6.0, "isExternal": false },
+      { "id": "APT_QUIZ", "name": "Quiz", "componentType": "Quiz", "maxMarks": 6, "weight": 6.0, "isExternal": false },
+      { "id": "APT_SURP", "name": "Surprise Test", "componentType": "Surprise Test", "maxMarks": 12, "weight": 4.0, "isExternal": false },
+      { "id": "APT_ATT", "name": "Attendance Marks", "componentType": "Attendance", "maxMarks": 4, "weight": 4.0, "isExternal": false }
+    ]
+  },
+  {
+    "id": "24CSH-301",
+    "code": "24CSH-301",
+    "name": "Project Based Learning in Java",
+    "coordinator": "Richa Dhiman (E11307)",
+    "courseType": "Major Core",
+    "category": "Graded (GR)",
+    "credits": 3.0,
+    "modeOfAssessment": "Hybrid",
+    "assessments": [
+      { "id": "JAVA_ETHT", "name": "End Term Hybrid Theory", "componentType": "End Semester Exam", "maxMarks": 60, "weight": 30.0, "isExternal": true },
+      { "id": "JAVA_PE", "name": "Practical Evaluations", "componentType": "External Practical", "maxMarks": 40, "weight": 20.0, "isExternal": true },
+      { "id": "JAVA_WS1", "name": "Practical Worksheet/Projects 1", "componentType": "Lab Worksheet", "maxMarks": 30, "weight": 2.0, "isExternal": false },
+      { "id": "JAVA_WS2", "name": "Practical Worksheet/Projects 2", "componentType": "Lab Worksheet", "maxMarks": 30, "weight": 2.0, "isExternal": false },
+      { "id": "JAVA_WS3", "name": "Practical Worksheet/Projects 3", "componentType": "Lab Worksheet", "maxMarks": 30, "weight": 2.0, "isExternal": false },
+      { "id": "JAVA_WS4", "name": "Practical Worksheet/Projects 4", "componentType": "Lab Worksheet", "maxMarks": 30, "weight": 2.0, "isExternal": false },
+      { "id": "JAVA_WS5", "name": "Practical Worksheet/Projects 5", "componentType": "Lab Worksheet", "maxMarks": 30, "weight": 2.0, "isExternal": false },
+      { "id": "JAVA_WS6", "name": "Practical Worksheet/Projects 6", "componentType": "Lab Worksheet", "maxMarks": 30, "weight": 2.0, "isExternal": false },
+      { "id": "JAVA_WS7", "name": "Practical Worksheet/Projects 7", "componentType": "Lab Worksheet", "maxMarks": 30, "weight": 2.0, "isExternal": false },
+      { "id": "JAVA_WS8", "name": "Practical Worksheet/Projects 8", "componentType": "Lab Worksheet", "maxMarks": 30, "weight": 2.0, "isExternal": false },
+      { "id": "JAVA_WS9", "name": "Practical Worksheet/Projects 9", "componentType": "Lab Worksheet", "maxMarks": 30, "weight": 2.0, "isExternal": false },
+      { "id": "JAVA_WS10", "name": "Practical Worksheet/Projects 10", "componentType": "Lab Worksheet", "maxMarks": 30, "weight": 2.0, "isExternal": false },
+      { "id": "JAVA_PBL", "name": "Assignment/PBL", "componentType": "Assignment", "maxMarks": 10, "weight": 6.0, "isExternal": false },
+      { "id": "JAVA_MST1", "name": "MST-1 Hybrid", "componentType": "Mid Term Test", "maxMarks": 20, "weight": 5.0, "isExternal": false },
+      { "id": "JAVA_MST2", "name": "MST-2 Hybrid", "componentType": "Mid Term Test", "maxMarks": 20, "weight": 5.0, "isExternal": false },
+      { "id": "JAVA_PMST", "name": "Practical MST", "componentType": "Lab Test", "maxMarks": 10, "weight": 4.0, "isExternal": false },
+      { "id": "JAVA_SURP", "name": "Surprise Test", "componentType": "Surprise Test", "maxMarks": 12, "weight": 4.0, "isExternal": false },
+      { "id": "JAVA_QUIZ", "name": "Quiz", "componentType": "Quiz", "maxMarks": 4, "weight": 4.0, "isExternal": false },
+      { "id": "JAVA_ATT", "name": "Attendance Marks", "componentType": "Attendance", "maxMarks": 2, "weight": 2.0, "isExternal": false }
+    ]
+  },
+  {
+    "id": "24CSH-318",
+    "code": "24CSH-318",
+    "name": "ServiceNow-I",
+    "coordinator": "Sohan Goswami (E16584)",
+    "courseType": "Major Elective",
+    "category": "Graded (GR)",
+    "credits": 3.0,
+    "modeOfAssessment": "Hybrid",
+    "assessments": [
+      { "id": "SN_PROJ_REP", "name": "Mini Project Design, Report and Presentation", "componentType": "Mini Project", "maxMarks": 50, "weight": 25.0, "isExternal": true },
+      { "id": "SN_PROJ_DEMO", "name": "Mini Project-Implementation and Demonstration", "componentType": "Mini Project", "maxMarks": 40, "weight": 20.0, "isExternal": true },
+      { "id": "SN_PT1", "name": "Practical Test-1", "componentType": "Practical Test", "maxMarks": 30, "weight": 7.5, "isExternal": false },
+      { "id": "SN_PT2", "name": "Practical Test-2", "componentType": "Practical Test", "maxMarks": 30, "weight": 7.5, "isExternal": false },
+      { "id": "SN_PT3", "name": "Practical Test-3", "componentType": "Practical Test", "maxMarks": 30, "weight": 7.5, "isExternal": false },
+      { "id": "SN_MID", "name": "Mid Term", "componentType": "Mid Term Test", "maxMarks": 15, "weight": 7.5, "isExternal": false },
+      { "id": "SN_PBL1", "name": "Assignment/PBL-1", "componentType": "Assignment", "maxMarks": 20, "weight": 6.0, "isExternal": false },
+      { "id": "SN_PBL2", "name": "Assignment/PBL-2", "componentType": "Assignment", "maxMarks": 20, "weight": 6.0, "isExternal": false },
+      { "id": "SN_PBL3", "name": "Assignment/PBL-3", "componentType": "Assignment", "maxMarks": 20, "weight": 6.0, "isExternal": false },
+      { "id": "SN_SURP", "name": "Surprise Test Score", "componentType": "Surprise Test", "maxMarks": 12, "weight": 5.0, "isExternal": false },
+      { "id": "SN_ATT", "name": "Attendance Marks", "componentType": "Attendance", "maxMarks": 2, "weight": 2.0, "isExternal": false }
+    ]
+  },
+  {
+    "id": "24SMT-341",
+    "code": "24SMT-341",
+    "name": "Probability and Statistics",
+    "coordinator": "Gursimran Kaur (E16567)",
+    "courseType": "Major Core",
+    "category": "Graded (GR)",
+    "credits": 4.0,
+    "modeOfAssessment": "Theory Examination (ET)",
+    "assessments": [
+      { "id": "STAT_EXT", "name": "External Theory", "componentType": "End Semester Exam", "maxMarks": 60, "weight": 60.0, "isExternal": true },
+      { "id": "STAT_MST1", "name": "Mid-Semester Test-1", "componentType": "Mid Term Test", "maxMarks": 20, "weight": 10.0, "isExternal": false },
+      { "id": "STAT_MST2", "name": "Mid-Semester Test-2", "componentType": "Mid Term Test", "maxMarks": 20, "weight": 10.0, "isExternal": false },
+      { "id": "STAT_PBL", "name": "Assignment/PBL", "componentType": "Assignment", "maxMarks": 10, "weight": 10.0, "isExternal": false },
+      { "id": "STAT_SURP", "name": "Surprise Test", "componentType": "Surprise Test", "maxMarks": 12, "weight": 4.0, "isExternal": false },
+      { "id": "STAT_QUIZ", "name": "Quiz", "componentType": "Quiz", "maxMarks": 4, "weight": 4.0, "isExternal": false },
+      { "id": "STAT_ATT", "name": "Attendance Marks", "componentType": "Attendance", "maxMarks": 2, "weight": 2.0, "isExternal": false }
+    ]
+  },
+  {
+    "id": "24CSP-305",
+    "code": "24CSP-305",
+    "name": "Competitive Coding-II",
+    "coordinator": "Mayank Sharma (E18387)",
+    "courseType": "Practical Core",
+    "category": "Graded (GR)",
+    "credits": 2.0,
+    "modeOfAssessment": "Practical Examination (PRAC)",
+    "assessments": [
+      { "id": "CC_VIVA", "name": "External Viva / Voce", "componentType": "External Practical", "maxMarks": 40, "weight": 40.0, "isExternal": true },
+      { "id": "CC_MID", "name": "Mid-Term Test", "componentType": "Mid Term Test", "maxMarks": 15, "weight": 15.0, "isExternal": false },
+      { "id": "CC_EXP1", "name": "Experiment-1", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "CC_EXP2", "name": "Experiment-2", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "CC_EXP3", "name": "Experiment-3", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "CC_EXP4", "name": "Experiment-4", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "CC_EXP5", "name": "Experiment-5", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "CC_EXP6", "name": "Experiment-6", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "CC_EXP7", "name": "Experiment-7", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "CC_EXP8", "name": "Experiment-8", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "CC_EXP9", "name": "Experiment-9", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "CC_EXP10", "name": "Experiment-10", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false }
+    ]
+  },
+  {
+    "id": "24CST-331",
+    "code": "24CST-331",
+    "name": "Big Data Fundamentals (Through SWAYAM)",
+    "coordinator": "Amanpreet Kaur (E15674)",
+    "courseType": "Major Elective",
+    "category": "Graded (GR)",
+    "credits": 3.0,
+    "modeOfAssessment": "Certificate Based (CERT)",
+    "assessments": [
+      { "id": "BD_EXT", "name": "External Theory", "componentType": "End Semester Exam", "maxMarks": 60, "weight": 60.0, "isExternal": true },
+      { "id": "BD_MST1", "name": "Mid-Semester Test-1", "componentType": "Mid Term Test", "maxMarks": 20, "weight": 10.0, "isExternal": false },
+      { "id": "BD_MST2", "name": "Mid-Semester Test-2", "componentType": "Mid Term Test", "maxMarks": 20, "weight": 10.0, "isExternal": false },
+      { "id": "BD_PBL", "name": "Assignment/PBL", "componentType": "Assignment", "maxMarks": 10, "weight": 10.0, "isExternal": false },
+      { "id": "BD_SURP", "name": "Surprise Test", "componentType": "Surprise Test", "maxMarks": 12, "weight": 4.0, "isExternal": false },
+      { "id": "BD_QUIZ", "name": "Quiz", "componentType": "Quiz", "maxMarks": 4, "weight": 4.0, "isExternal": false },
+      { "id": "BD_ATT", "name": "Attendance Marks", "componentType": "Attendance", "maxMarks": 2, "weight": 2.0, "isExternal": false }
+    ]
+  },
+  {
+    "id": "24CST-302",
+    "code": "24CST-302",
+    "name": "Computer Networks",
+    "coordinator": "Monika (E9911)",
+    "courseType": "Major Core",
+    "category": "Graded (GR)",
+    "credits": 3.0,
+    "modeOfAssessment": "Theory Examination (ET)",
+    "assessments": [
+      { "id": "CN_EXT", "name": "External Theory", "componentType": "End Semester Exam", "maxMarks": 60, "weight": 60.0, "isExternal": true },
+      { "id": "CN_MST1", "name": "Mid-Semester Test-1", "componentType": "Mid Term Test", "maxMarks": 20, "weight": 10.0, "isExternal": false },
+      { "id": "CN_MST2", "name": "Mid-Semester Test-2", "componentType": "Mid Term Test", "maxMarks": 20, "weight": 10.0, "isExternal": false },
+      { "id": "CN_PBL", "name": "Assignment/PBL", "componentType": "Assignment", "maxMarks": 10, "weight": 10.0, "isExternal": false },
+      { "id": "CN_SURP", "name": "Surprise Test", "componentType": "Surprise Test", "maxMarks": 12, "weight": 4.0, "isExternal": false },
+      { "id": "CN_QUIZ", "name": "Quiz", "componentType": "Quiz", "maxMarks": 4, "weight": 4.0, "isExternal": false },
+      { "id": "CN_ATT", "name": "Attendance Marks", "componentType": "Attendance", "maxMarks": 2, "weight": 2.0, "isExternal": false }
+    ]
+  },
+  {
+    "id": "24CSP-304",
+    "code": "24CSP-304",
+    "name": "Full Stack Development - II",
+    "coordinator": "Tushar Sood (E18319)",
+    "courseType": "Skilling Core",
+    "category": "Graded (GR)",
+    "credits": 1.0,
+    "modeOfAssessment": "Practical Examination (PRAC)",
+    "assessments": [
+      { "id": "FSD_VIVA", "name": "External Viva / Voce", "componentType": "External Practical", "maxMarks": 40, "weight": 40.0, "isExternal": true },
+      { "id": "FSD_MID", "name": "Mid-Term Test", "componentType": "Mid Term Test", "maxMarks": 15, "weight": 15.0, "isExternal": false },
+      { "id": "FSD_EXP1", "name": "Experiment-1", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "FSD_EXP2", "name": "Experiment-2", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "FSD_EXP3", "name": "Experiment-3", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "FSD_EXP4", "name": "Experiment-4", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "FSD_EXP5", "name": "Experiment-5", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "FSD_EXP6", "name": "Experiment-6", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "FSD_EXP7", "name": "Experiment-7", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "FSD_EXP8", "name": "Experiment-8", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "FSD_EXP9", "name": "Experiment-9", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false },
+      { "id": "FSD_EXP10", "name": "Experiment-10", "componentType": "Lab Experiment", "maxMarks": 30, "weight": 4.5, "isExternal": false }
+    ]
+  }
+]
