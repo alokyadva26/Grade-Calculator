@@ -3,27 +3,152 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-surface: #f5f5f7;
+    --color-surface-card: #ffffff;
+    --color-text: #1d1d1f;
+    --color-text-secondary: #6e6e73;
+    --color-text-tertiary: #86868b;
+    --color-accent: #0071e3;
+    --color-border: rgba(0, 0, 0, 0.06);
+    --radius-spatial: 14px;
+    --shadow-spatial: 0 2px 8px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Avenir', 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  /* Remove default number input spinners for cleaner look */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
   }
 }
 
-/* Custom subtle scrollbar */
+@layer components {
+  /* Spatial floating card */
+  .spatial-card {
+    @apply bg-white rounded-spatial-lg border border-spatial-border shadow-spatial;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .spatial-card:hover {
+    @apply shadow-spatial-md;
+  }
+
+  /* Spatial input field */
+  .spatial-input {
+    @apply w-full px-3 py-2.5 rounded-spatial-sm border border-spatial-border-strong
+           bg-surface-tertiary text-spatial-text text-sm font-medium
+           focus:outline-none focus:ring-2 focus:ring-spatial-accent/30 focus:border-spatial-accent
+           transition-all duration-200;
+    min-height: 44px;
+  }
+
+  /* Spatial button base */
+  .spatial-btn {
+    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2.5
+           rounded-spatial-sm font-semibold text-sm
+           transition-all duration-200;
+    min-height: 44px;
+  }
+
+  .spatial-btn:active {
+    transform: scale(0.98);
+  }
+
+  .spatial-btn-primary {
+    @apply spatial-btn bg-spatial-accent text-white shadow-spatial-sm
+           hover:bg-spatial-accent-hover;
+  }
+
+  .spatial-btn-secondary {
+    @apply spatial-btn bg-spatial-accent-subtle text-spatial-accent
+           hover:bg-spatial-accent-light;
+  }
+
+  .spatial-btn-ghost {
+    @apply spatial-btn text-spatial-text-secondary
+           hover:bg-black/[0.04];
+  }
+
+  /* Status badges */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .badge-success {
+    @apply badge bg-spatial-success-bg text-green-700 border border-spatial-success-border;
+  }
+
+  .badge-warning {
+    @apply badge bg-spatial-warning-bg text-amber-700 border border-spatial-warning-border;
+  }
+
+  .badge-error {
+    @apply badge bg-spatial-error-bg text-red-600 border border-spatial-error-border;
+  }
+
+  .badge-neutral {
+    @apply badge bg-black/[0.04] text-spatial-text-secondary border border-spatial-border;
+  }
+
+  /* Section step label */
+  .step-label {
+    @apply text-[11px] font-bold uppercase tracking-[0.08em] text-spatial-text-tertiary;
+  }
+}
+
+/* Refined scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: rgba(0, 0, 0, 0.12);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: rgba(0, 0, 0, 0.24);
 }
 
+/* Selection color */
+::selection {
+  background-color: rgba(0, 113, 227, 0.2);
+  color: #1d1d1f;
+}
+
+/* Focus visible ring utility */
+*:focus-visible {
+  outline: 2px solid rgba(0, 113, 227, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Smooth transitions on interactive elements */
+button, a, input, select, textarea {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
