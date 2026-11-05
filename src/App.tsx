@@ -294,22 +294,22 @@ export const App: React.FC = () => {
         {/* ── 1. Clean Prominent Subject Dropdown ── */}
         <section className="space-y-2">
           <label htmlFor="subject-select" className="block text-xs font-semibold text-[#86868b] uppercase tracking-wider">
-            Subject
+            Select Subject
           </label>
           <div className="relative">
             <select
               id="subject-select"
               value={selectedSubjectCode}
               onChange={(e) => setSelectedSubjectCode(e.target.value)}
-              className="w-full appearance-none bg-white min-card px-3.5 py-2.5 text-sm font-semibold text-[#1d1d1f] cursor-pointer focus:outline-none focus:border-[#0071e3] pr-10"
+              className="w-full appearance-none bg-white min-card px-3.5 py-2.5 min-h-[44px] text-sm sm:text-base font-semibold text-[#1d1d1f] cursor-pointer focus:outline-none focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/20 pr-10 shadow-xs"
             >
               {curriculum.map((subj) => (
                 <option key={subj.code} value={subj.code}>
-                  {subj.code} — {subj.name}
+                  {subj.code} — {subj.name} ({subj.credits} Cr)
                 </option>
               ))}
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[#86868b]">
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-[#86868b]">
               <ChevronDown className="w-4 h-4" />
             </div>
           </div>
@@ -317,11 +317,15 @@ export const App: React.FC = () => {
           {/* Subject metadata */}
           <div className="flex items-center justify-between px-1 text-xs text-[#86868b]">
             <div className="flex items-center gap-1.5">
+              <span className="font-medium text-[#1d1d1f]">{activeSubject.name}</span>
+              <span>•</span>
               <span>{activeSubject.credits} Credits</span>
               <span>•</span>
               <span>{activeSubject.category}</span>
             </div>
-            <span>Internal {100 - externalWeightTotal}% / External {externalWeightTotal}%</span>
+            <span className="font-medium text-[#0071e3]">
+              Internal {100 - externalWeightTotal}% / External {externalWeightTotal}%
+            </span>
           </div>
         </section>
 
